@@ -7,6 +7,7 @@ import Balance from "./components/Balance";
 import ExpenseCard from "./components/ExpenseCard";
 import NewTransaction from "./components/NewTransaction";
 import Transactions from "./components/Transactions";
+// import Transaction from "./components/Transaction";
 const Header = styled(Typography)`
   font-size: 36px;
   color: blue;
@@ -33,23 +34,38 @@ function App() {
     { id: 3, text: "Book", amount: -100 },
     { id: 4, text: "Bonus", amount: 1500 },
   ]);
+
+  const deleteTransaction = (id, setTransactions) => {
+    console.log(id);
+    setTransactions(
+      transactions.filter((transaction) => transaction.id !== id)
+    );
+    console.log(transactions);
+  };
+
+  const addTransaction = (transaction, setTransactions) => {
+    setTransactions((transactions) => [transaction, ...transactions]);
+    console.log(transaction);
+    console.log(transactions);
+  };
+
   return (
-    <Box className="App">
+    <div className="App">
       <Header>Expense Tracker</Header>
       <Component>
         <Box>
           <Balance transactions={transactions} />
           <ExpenseCard transactions={transactions} />
-          <NewTransaction setTranscations={setTranscations} />
+          <NewTransaction addTransaction={addTransaction} />
         </Box>
         <Box>
           <Transactions
             transactions={transactions}
-            setTranscations={setTranscations}
+            deleteTransaction={deleteTransaction}
           />
         </Box>
       </Component>
-    </Box>
+    </div>
   );
 }
 

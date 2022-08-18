@@ -1,21 +1,26 @@
-import { ListItem, ListItemText, styled, ListItemIcon } from "@mui/material";
+import { ListItemText, ListItem, styled, ListItemIcon } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-const Detail = styled(ListItem)`
-  margin-top: 10px;
+
+const List = styled(ListItem)`
+  display: flex;
+  margintop: 10px;
+  border: 1px solid #f6f6f6;
 `;
-const Transaction = ({ transaction, setTransactions, transactions }) => {
-  const color = transaction.amount > 0 ? "Green" : "Red";
-  const deleteTransaction = (id) => {
-    setTransactions(transactions.filter((transaction) => transaction.id != id));
-  };
+
+const Transaction = ({ transaction, deleteTransaction }) => {
+  const sign = transaction.amount >= 0 ? "₹" : "-₹";
+  const amount = sign + Math.abs(transaction.amount);
+  const color = transaction.amount >= 0 ? "Green" : "Red";
+
   return (
-    <Detail style={{ background: `${color}`, color: "#fff" }}>
+    <List style={{ background: `${color}`, color: "#fff" }}>
       <ListItemIcon>
         <DeleteIcon onClick={() => deleteTransaction(transaction.id)} />
       </ListItemIcon>
-      <ListItemText>{transaction.text}</ListItemText>
-      <ListItemText>{transaction.amount}</ListItemText>
-    </Detail>
+      <ListItemText primary={transaction.text} />
+      <ListItemText primary={amount} />
+    </List>
   );
 };
+
 export default Transaction;

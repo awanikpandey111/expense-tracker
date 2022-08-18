@@ -1,20 +1,30 @@
-import { Box, Typography, Divider, List } from "@mui/material";
+import { Typography, List, Divider, styled, Box } from "@mui/material";
 import Transaction from "./Transaction";
-const Transactions = ({ transactions, setTransactions }) => {
+
+const Component = styled(Box)`
+  & > h5 {
+    margin-bottom: 10px;
+  }
+`;
+
+const Transactions = ({ transactions, deleteTransaction }) => {
   return (
-    <Box>
+    <Component>
       <Typography variant="h5">Transaction History</Typography>
-      <Divider />
+      <Divider style={{ width: "100%" }} />
       <List>
-        {transactions.map((transaction) => (
-          <Transaction
-            transaction={transaction}
-            setTransactions={setTransactions}
-            transactions={transactions}
-          />
-        ))}
+        {transactions.map((transaction) => {
+          return (
+            <Transaction
+              transaction={transaction}
+              deleteTransaction={deleteTransaction}
+              key={transaction.id}
+            />
+          );
+        })}
       </List>
-    </Box>
+    </Component>
   );
 };
+
 export default Transactions;

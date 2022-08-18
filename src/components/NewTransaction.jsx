@@ -1,39 +1,52 @@
 import { useState } from "react";
-import { Box, Typography, TextField, Button, styled } from "@mui/material";
+import { Typography, Box, TextField, Button, styled } from "@mui/material";
+
 const Container = styled(Box)`
   display: flex;
-
   flex-direction: column;
-  & > h5 & > div & > Button {
-    margin-top: 50px;
+  & > h5,
+  & > div,
+  & > button {
+    margin-top: 30px;
   }
 `;
-const NewTransaction = ({ setTransactions }) => {
+
+const StyledButton = styled(Button)`
+  background: #445a6f;
+  color: #fff;
+`;
+
+const NewTransaction = ({ addTransaction }) => {
   const [text, setText] = useState("");
   const [amount, setAmount] = useState();
-  const addTransaction = () => {
+
+  const newTransaction = (e) => {
     const transaction = {
-      id: Math.floor(Math.random() * 1000000),
+      id: Math.floor(Math.random() * 100000000),
       text: text,
       amount: +amount,
     };
-    setTransactions((prevState) => [transaction, ...prevState]);
+    addTransaction(transaction);
   };
+
   return (
     <Container>
-      <Typography variant="h5">New Transcation</Typography>
+      <Typography variant="h5">New Transaction</Typography>
       <TextField
+        value={text}
         label="Enter Expense"
         onChange={(e) => setText(e.target.value)}
       />
       <TextField
+        value={amount}
         label="Enter Amount"
         onChange={(e) => setAmount(e.target.value)}
       />
-      <Button variant="contained" onClick={() => addTransaction()}>
-        Add Transcation
-      </Button>
+      <StyledButton variant="contained" onClick={newTransaction}>
+        Add Transaction
+      </StyledButton>
     </Container>
   );
 };
+
 export default NewTransaction;
