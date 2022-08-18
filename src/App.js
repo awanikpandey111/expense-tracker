@@ -38,12 +38,15 @@ function App() {
       <Header>Expense Tracker</Header>
       <Component>
         <Box>
-          <Balance />
-          <ExpenseCard />
-          <NewTransaction />
+          <Balance transactions={transactions} />
+          <ExpenseCard transactions={transactions} />
+          <NewTransaction setTranscations={setTranscations} />
         </Box>
         <Box>
-          <Transactions transactions={transactions} />
+          <Transactions
+            transactions={transactions}
+            setTranscations={setTranscations}
+          />
         </Box>
       </Component>
     </Box>
