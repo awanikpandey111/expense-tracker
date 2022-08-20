@@ -28,23 +28,24 @@ const Component = styled(Box)`
 `;
 
 function App() {
-  const [transactions, setTranscations] = useState([
+  // const addTransaction = (transaction, addTransactions) => {
+  const [transactions, addTransactions] = useState([
     { id: 1, text: "momos", amount: -20 },
     { id: 2, text: "Salary", amount: 3000 },
     { id: 3, text: "Book", amount: -100 },
     { id: 4, text: "Bonus", amount: 1500 },
   ]);
 
-  const deleteTransaction = (id, setTransactions) => {
+  const deleteTransaction = (id) => {
     console.log(id);
-    setTransactions(
+    addTransactions(
       transactions.filter((transaction) => transaction.id !== id)
     );
     console.log(transactions);
   };
 
-  const addTransaction = (transaction, setTransactions) => {
-    setTransactions((transactions) => [transaction, ...transactions]);
+  const addTransaction = (transaction) => {
+    addTransactions((transactions) => [transaction, ...transactions]);
     console.log(transaction);
     console.log(transactions);
   };
